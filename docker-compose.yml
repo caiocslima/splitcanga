@@ -1,0 +1,26 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./Backend
+    ports:
+      - "4003:8080"
+    depends_on:
+      - postgres
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=splitcanga;Username=splitcanga;Password=secretpassword;"
+
+  frontend:
+    build:
+      context: ./Frontend
+    ports:
+      - "3000:3000"
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: splitcanga
+      POSTGRES_USER: splitcanga
+      POSTGRES_PASSWORD: secretpassword
+    ports:
+      - "5432:5432"
